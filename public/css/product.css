@@ -1,0 +1,59 @@
+.product-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+}
+
+.form-control {
+    margin: 1rem 0;
+}
+
+.form-control label,
+.form-control input {
+    display: block;
+    width: 100%;
+}
+
+.form-control input {
+    border: 1px solid #04ddb2;
+    font: inherit;
+    border-radius: 2px;
+}
+
+button {
+    font: inherit;
+    border: 1px solid #3e00a1;
+    color: #3e00a1;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover,
+button:active {
+    background-color: #3e00a1;
+    color: white;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid .card.product-item {
+    max-width: 200px;
+}
+.grid img.card__image {
+    width: 200px;
+}
+
+.card.product-item {
+    background: #9f0fe5;
+    border: 1px solid #bc5be6;
+    border-radius: 6px;
+    color: #ecff00;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 0px 3px 2px #09010f24;
+    margin: 20px 20px;
+}
