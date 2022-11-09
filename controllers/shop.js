@@ -5,7 +5,7 @@ exports.getProducts = async ( req, res, next ) => {
         res.render('shop/product-list', {
             prods: products,
             pageTitle: 'All Products',
-            path: '/'
+            path: '/products'
         });
     })
 };
@@ -35,7 +35,34 @@ exports.getCheckout = ( req, res, next ) => {
 
     res.render('shop/checkout', {
         pageTitle: 'Checkout',
-        path: '/cart'
+        path: '/checkout'
     });
+
+}
+
+exports.getOrders = ( req, res, next ) => {
+
+    res.render('shop/orders', {
+        pageTitle: 'Orders',
+        path: '/orders'
+    });
+
+}
+
+exports.getProducDetails = ( req, res, next ) => {
+    
+    const slug = req.params.slug;
+
+    Product.findBySlug( slug ).then( ( product ) => {
+        
+        res.render('shop/product-details', {
+            pageTitle: product.title,
+            path: '/products',
+            product: product
+        });
+
+    });
+
+   
 
 }

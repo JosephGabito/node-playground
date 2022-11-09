@@ -26,15 +26,29 @@ const getProductsFromFile = () => {
 
 class Product {
 
-    constructor( t ) {
-        this.title = t;
+    constructor( title, imageUrl, description, price ) {
+        this.id = Math.random().toString(16).slice(2);
+        this.title = title;
+        
+        this.slug = title.toLowerCase()
+            .replace(/[^\w ]+/g, '')
+            .replace(/ +/g, '-')
+            + '__' + this.id;
+
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
     }
 
     async save() {
 
-        let products = await getProductsFromFile();
+        let products = [];
         
-        products = JSON.parse( products );
+        let existingProducts = await getProductsFromFile();
+
+        if ( typeof existingProducts === 'string' && existingProducts.length >=1 ) {
+            products = JSON.parse( existingProducts );
+        }
 
         products.push( this );
 
@@ -60,6 +74,15 @@ class Product {
             })
         });
 
+    }
+
+    static findBySlug( slug ) {
+
+        return new Promise( async ( resolve, reject ) => {
+            const prods = await this.fetchAll();
+            resolve( prods.find( p=> p.slug === slug ) );
+        });
+        
     }
 
 }

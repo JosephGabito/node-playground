@@ -1,0 +1,51 @@
+<%- include('../includes/header') %>
+
+    <header class="main-header">
+        <%- include('../includes/navigation') %>
+    </header>
+    <main>
+        <% if (prods.length > 0) { %>
+            
+            <div class="grid">
+                
+                <% for( let product of prods ) { %>
+
+                    <% if ( product.title.length >= 1 ) { %>
+                    <div class="card product-item">
+                        <div class="product-item__title">
+                            <h3><%=product.title%></h3>
+                        </div>
+                        <div class="product-item__thumbnail">
+                            <img width="200" class="card__image" src="<%=product.imageUrl%>" />
+                        </div>
+                        <div class="product-item__short-description">
+                            <p>
+                                <%=product.description%>
+                            </p>
+                        </div>
+                        <div class="product-item__price">
+                            <p>
+                                $<%=parseFloat(product.price).toFixed(2)%>
+                            </p>
+                        </div>
+                        <div class="product-item__button">
+                            <a href="/admin/edit-product">
+                                Edit
+                            </a>
+                            <a href="/admin/delete/product/<%=product.id%>">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+
+                    <% } %>
+
+                <% } %>
+
+            </div>
+            
+        <% } else { %>
+            <h1>No products found</h1>
+        <% } %> 
+    </main>
+<%- include('../includes/footer') %>

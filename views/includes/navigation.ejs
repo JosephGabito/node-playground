@@ -1,22 +1,25 @@
-<nav class="main-header__nav">
-    <ul class="main-header__item-list">
+<nav class="main-header__nav relative bg-slate-900 text-slate-200 border-slate-200 border-b-solid border-b">
+    <ul class="main-header__item-list flex flex-nowrap">
         <li class="main-header__item">
-            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
+            <a class="px-10 py-5 block <%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
         </li>
         <li class="main-header__item">
-            <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+            <a class="px-10 py-5 block <%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
         </li>
         <li class="main-header__item">
-            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
+            <a class="px-10 py-5 block<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
         </li>
         <li class="main-header__item">
-            <a class="<%= path === '/checkout' ? 'active' : '' %>" href="/checkout">Checkout</a>
+            <a class="px-10 py-5 block <%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
         </li>
         <li class="main-header__item">
-            <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+            <a class="px-10 py-5 block <%= path === '/checkout' ? 'active' : '' %>" href="/checkout">Checkout</a>
         </li>
         <li class="main-header__item">
-            <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/products">Admin Products</a>
+            <a class="px-10 py-5 block <%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+        </li>
+        <li class="main-header__item">
+            <a class="px-10 py-5 block <%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products</a>
         </li>
     </ul>
 </nav>
