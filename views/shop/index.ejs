@@ -3,36 +3,39 @@
     <header class="main-header">
         <%- include('../includes/navigation') %>
     </header>
-    <main>
+
+    <main class="container mx-auto pt-6">
+
         <% if (prods.length > 0) { %>
             
-            <div class="grid">
+            <div class="flex flex-wrap justify-center">
                 
                 <% for( let product of prods ) { %>
 
                     <% if ( product.title.length >= 1 ) { %>
-                    <div class="card product-item">
-                        <div class="product-item__title">
-                            <h3><%=product.title%></h3>
-                        </div>
-                        <div class="product-item__thumbnail">
-                            <img width="200" class="card__image" src="<%=product.imageUrl%>" />
-                        </div>
-                        <div class="product-item__short-description">
-                            <p>
-                                <%=product.description%>
-                            </p>
-                        </div>
-                        <div class="product-item__price">
-                            <p>
-                                $<%=parseFloat(product.price).toFixed(2)%>
-                            </p>
-                        </div>
-                        <div class="product-item__button">
-                            <button>
-                                Add to cart
-                            </button>
-                        </div>
+                    <div class="card product-item  w-64  m-5">
+                            <div class="product-item__thumbnail mb-3">
+                                <img width="200" class="card__image" src="<%=product.imageUrl%>" />
+                            </div>
+                                <div class="product-item__short-description mb-3 flex-1">
+                                    <p class="text-sm font-light text-slate-700">
+                                        <%=product.title%>
+                                    </p>
+                                </div>
+                                <div class="product-item__price  mb-3">
+                                    <p class="text-slate-900 font-light">
+                                        $<%=parseFloat(product.price).toFixed(2)%>
+                                    </p>
+                                </div>
+                            <div class="product-item__button flex items-center justify-between">
+                                
+                                <a href="/products/<%=product.slug%>" class="text-sm font-light">Details</a>
+
+                                <%- include('../includes/add-to-cart.ejs', {
+                                    product: product
+                                }) %>
+                                
+                            </div>
                     </div>
 
                     <% } %>

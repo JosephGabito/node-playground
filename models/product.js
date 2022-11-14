@@ -76,6 +76,15 @@ class Product {
 
     }
 
+    static findById( id ) {
+
+        return new Promise( async ( resolve, reject ) => {
+            const prods = await this.fetchAll();
+            resolve( prods.find( p=> p.id === id ) );
+        });
+        
+    }
+
     static findBySlug( slug ) {
 
         return new Promise( async ( resolve, reject ) => {

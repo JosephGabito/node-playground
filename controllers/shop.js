@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 exports.getProducts = async ( req, res, next ) => {
     Product.fetchAll().then(( products )=>{
@@ -28,6 +29,19 @@ exports.getCart = ( req, res, next ) => {
         pageTitle: 'Cart',
         path: '/cart'
     });
+    
+}
+
+exports.postCart = ( req, res, next ) => {
+
+    const productId = req.body.productId;
+    
+    const prod = Product.findById( productId ).then( product => {
+            Cart.addProduct( productId, parseFloat( product.price ) );
+        } 
+    ); 
+
+    res.end();
     
 }
 
@@ -62,7 +76,5 @@ exports.getProducDetails = ( req, res, next ) => {
         });
 
     });
-
-   
 
 }

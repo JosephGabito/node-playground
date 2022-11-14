@@ -28,10 +28,13 @@
                                     </p>
                                 </div>
                             <div class="product-item__button flex items-center justify-between">
+                                
                                 <a href="/products/<%=product.slug%>" class="text-sm font-light">Details</a>
-                                <button class="bg-slate-200 rounded-sm py-2 px-2 font-semibold text-sm">
-                                    Add to cart
-                                </button>
+
+                                <%- include('../includes/add-to-cart.ejs', {
+                                    product: product
+                                }) %>
+                                
                             </div>
                     </div>
 
