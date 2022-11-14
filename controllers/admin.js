@@ -8,24 +8,32 @@ exports.getAddProduct = ( req, res, next ) => {
 };
 
 exports.postAddProduct = ( req,res,next) => {
-    
-    const product = new Product( 
-        req.body.title,
-        req.body.imageUrl,
-        req.body.description,
-        req.body.price
-    );
 
-    product.save();
+    const title = req.body.title;
+    const slug = title.toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-')
+        + '__';
 
-    res.redirect('/');
+    Product.create({
+        title: title,
+        slug: slug,
+        imageUrl: req.body.imageUrl,
+        description: req.body.description,
+        price: req.body.price
+    }).then(result => {
+        console.log('Product created');
+        res.redirect('/');
+    }).catch((error) => {
+        console.log(error);
+    });
 
 };
 
 
 exports.getProducts = ( req, res, next ) => {
 
-    Product.fetchAll().then((products)=>{
+    Product.findAll().then((products)=>{
         res.render('admin/products', {
             pageTitle: 'Admin Products',
             path: '/admin/products',

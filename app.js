@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const pageNotFoundController = require('./controllers/404');
 
+const sequelize = require('./util/database');
+
 const app = express();
 
 // Global configs.
@@ -28,5 +30,11 @@ app.use( shopRoutes, adminRoutes );
 // Handles 404.
 app.use(pageNotFoundController.get404);
 
-// Listen to port 3002.
-app.listen( 3002 );
+sequelize.sync().then( result => {
+    //console.log( result )
+    // Listen to port 3002.
+    app.listen( 3002 );
+})
+.catch( error => console.log( error ))
+;
+

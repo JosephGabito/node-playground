@@ -2,25 +2,23 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getProducts = async ( req, res, next ) => {
-    Product.fetchAll().then(( products )=>{
-        res.render('shop/product-list', {
-            prods: products,
-            pageTitle: 'All Products',
-            path: '/products'
-        });
-    })
-};
-
-exports.getIndex = ( req, res, next) => {
-    
-    Product.fetchAll().then(( products )=>{
+    Product.findAll().then(( products )=>{
         res.render('shop/index', {
             prods: products,
             pageTitle: 'Shop',
             path: '/'
         });
-    })
+    });
+};
 
+exports.getIndex = ( req, res, next) => {
+    Product.findAll().then(( products )=>{
+        res.render('shop/index', {
+            prods: products,
+            pageTitle: 'Shop',
+            path: '/'
+        });
+    });
 }
 
 exports.getCart = ( req, res, next ) => {
@@ -67,12 +65,20 @@ exports.getProducDetails = ( req, res, next ) => {
     
     const slug = req.params.slug;
 
-    Product.findBySlug( slug ).then( ( product ) => {
+    Product.findAll(
+        {
+            where: {
+                slug: slug
+            }
+        }
+    ).then( product => {
         
+        const single = product[0].dataValues;
+
         res.render('shop/product-details', {
-            pageTitle: product.title,
+            pageTitle: single.title,
             path: '/products',
-            product: product
+            product: single
         });
 
     });
