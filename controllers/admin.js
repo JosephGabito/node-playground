@@ -42,3 +42,61 @@ exports.getProducts = ( req, res, next ) => {
     });
     
 }
+
+exports.getProductEdit = ( req, res, next ) => {
+
+    console.log( req.params.id );
+
+    Product.findAll(
+        {
+            where: {id: req.params.id}
+        }
+    ).then((products)=>{
+        res.render('admin/edit-product', {
+            pageTitle: 'Editing: ' + products[0].dataValues.title,
+            path: '/admin/products/edit',
+            product: products[0].dataValues,
+        });
+    }).catch(()=>{
+        res.render('404', {
+            pageTitle: 'Product not found',
+            path: '/404',
+        });
+    });
+}
+
+exports.updateProductEdit = ( req, res, next ) => {
+
+    const _id = req.body.id;
+
+    Product.findOne({ where: { id: _id } })
+        .then( ( product ) => {
+
+            if (product) {
+                product.update( req.body )
+                .then(function ( result ) {
+                    res.redirect( '/admin/products/edit' + _id );
+                })
+            }
+           
+        });
+
+}
+
+exports.deleteProduct = ( req, res, next ) => {
+    
+    const _id = req.params.id;
+
+    Product.findOne({ where: { id: _id } })
+        .then( ( product ) => {
+
+            if (product) {
+                product.destroy().then(()=>{
+                    res.redirect( '/admin/products' );
+                });
+            }
+        
+        });
+
+}
+

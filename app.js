@@ -35,6 +35,5 @@ sequelize.sync().then( result => {
     // Listen to port 3002.
     app.listen( 3002 );
 })
-.catch( error => console.log( error ))
-;
+.catch( error => console.log( error ));
 

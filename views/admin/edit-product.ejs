@@ -1,0 +1,50 @@
+<%- include('../includes/header') %>
+
+<header class="main-header">
+    <%- include('../includes/navigation') %>
+</header>
+
+<main>
+    <div class="container m-auto">
+        <h4 class="text-4xl">
+            Editing: <%= product.title %>
+        </h4>
+    </div>
+    <form class="product-form" action="/admin/product/edit" method="POST">
+
+        <div class="wrap w-96 block m-auto py-16">
+
+            <input type="hidden" name="id" value="<%=product.id%>" />
+
+            <div class="block form-control">
+                <label class="block my-2 text-slate-800 font-semibold" for="title">Title</label>
+                <input value="<%=product.title%>" class="bg-slate-50 border w-full border-slate-300 rounded px-3 py-2 shadow-sm" id="title" type="text" name="title">
+            </div>
+    
+            <div class="block form-control">
+                <label class="block my-2 text-slate-800 font-semibold" for="imageUrl">Image URL</label>
+                <img src="<%=product.imageUrl%>" width="150" class="mb-4" />
+                <input value="<%=product.imageUrl%>" class="bg-slate-50 border w-full border-slate-300 rounded px-3 py-2 shadow-sm" id="imageUrl" type="url" name="imageUrl">
+            </div>
+    
+            <div class="block form-control">
+                <label class="block my-2 text-slate-800 font-semibold" for="description">Description</label>
+                <textarea class="bg-slate-50 border w-full border-slate-300 rounded px-3 py-2 shadow-sm" cols="38" rows="5" id="description" type="text" name="description"><%=product.description%></textarea>
+            </div>
+    
+            <div class="block form-control">
+                <label class="block my-2 text-slate-800 font-semibold" for="price">Price</label>
+                <input value="<%=product.price%>" class="bg-slate-50 w-full border border-slate-300 rounded px-3 py-2 shadow-sm" id="price" type="text" name="price">
+            </div>
+    
+            <div class="block form-control">
+                <button class="mt-10 border-slate-900 border rounded-lg px-4 font-semibold py-1" type="submit">Update Product</button>
+            </div>
+            
+        </div>
+
+    </form>
+
+</main>
+
+<%- include('../includes/footer') %>
