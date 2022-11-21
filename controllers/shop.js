@@ -1,8 +1,8 @@
-const Product = require('../models/product');
-const Cart = require('../models/cart');
+const db = require('../util/database');
+const products = require('../models/product');
 
-exports.getProducts = async ( req, res, next ) => {
-    Product.findAll().then(( products )=>{
+exports.getProducts = (req, res, next) => {
+    products.fetchAll().then((products) => {
         res.render('shop/index', {
             prods: products,
             pageTitle: 'Shop',
@@ -11,39 +11,55 @@ exports.getProducts = async ( req, res, next ) => {
     });
 };
 
-exports.getIndex = ( req, res, next) => {
-    Product.findAll().then(( products )=>{
+exports.getIndex = (req, res, next) => {
+    products.fetchAll().then((products) => {
         res.render('shop/index', {
             prods: products,
-            pageTitle: 'Shop',
+            pageTitle: 'Home',
             path: '/'
         });
     });
 }
 
-exports.getCart = ( req, res, next ) => {
+exports.getProducDetails = (req, res, next) => {
+
+    const id = req.params.id;
+
+    products.findById(id).then(product => {
+        res.render('shop/product-details', {
+            pageTitle: product.title,
+            path: '/products',
+            product: product
+        });
+    });
+
+}
+
+
+/**
+exports.getCart = (req, res, next) => {
 
     res.render('shop/cart', {
         pageTitle: 'Cart',
         path: '/cart'
     });
-    
+
 }
 
-exports.postCart = ( req, res, next ) => {
+exports.postCart = (req, res, next) => {
 
     const productId = req.body.productId;
-    
-    const prod = Product.findById( productId ).then( product => {
-            Cart.addProduct( productId, parseFloat( product.price ) );
-        } 
-    ); 
+
+    const prod = Product.findById(productId).then(product => {
+        Cart.addProduct(productId, parseFloat(product.price));
+    }
+    );
 
     res.end();
-    
+
 }
 
-exports.getCheckout = ( req, res, next ) => {
+exports.getCheckout = (req, res, next) => {
 
     res.render('shop/checkout', {
         pageTitle: 'Checkout',
@@ -52,7 +68,7 @@ exports.getCheckout = ( req, res, next ) => {
 
 }
 
-exports.getOrders = ( req, res, next ) => {
+exports.getOrders = (req, res, next) => {
 
     res.render('shop/orders', {
         pageTitle: 'Orders',
@@ -61,26 +77,6 @@ exports.getOrders = ( req, res, next ) => {
 
 }
 
-exports.getProducDetails = ( req, res, next ) => {
-    
-    const slug = req.params.slug;
 
-    Product.findAll(
-        {
-            where: {
-                slug: slug
-            }
-        }
-    ).then( product => {
-        
-        const single = product[0].dataValues;
 
-        res.render('shop/product-details', {
-            pageTitle: single.title,
-            path: '/products',
-            product: single
-        });
-
-    });
-
-}
+*/
